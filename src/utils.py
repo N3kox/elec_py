@@ -6,10 +6,14 @@ import pickle
 
 from py2neo import Node, Relationship, Graph
 
-dir = "/Users/mac/Desktop/毕设/数据/"
-pklDir = dir + 'ws4mission/pickles/'
+dir = r"E:\毕设\data\\"
+pklDir = dir + 'ws4mission\pickles\\'
+stopDir = dir + 'stopwords\\'
+stopFileDir = stopDir + 'baidu_stopwords.txt'
+
 
 def csvReader(fileName):
+    print(dir+fileName+".csv")
     return csv.reader(open(dir + fileName + ".csv", "r", encoding="UTF-8-sig"))
 
 
@@ -144,5 +148,10 @@ def pickleReader(name):
         return None
 
 
-
-
+# 停用词表读取
+def readStopSet():
+    stopFile = open(stopFileDir, 'r', encoding='utf-8')
+    stopSet = set()
+    for val in stopFile:
+        stopSet.add(val)
+    return stopSet

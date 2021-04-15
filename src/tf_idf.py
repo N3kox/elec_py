@@ -2,7 +2,7 @@
 from collections import defaultdict
 import math
 import operator
-from webSpider.src.mission_slicer import work_detail_parser_ltp, work_detail_parser_jieba
+from src.mission_slicer import work_detail_parser_ltp, work_detail_parser_jieba
 
 """
 函数说明:创建数据样本
@@ -13,7 +13,8 @@ Returns:
 
 
 def loadDataSet():
-    da, db = work_detail_parser_jieba()
+    # da, db = work_detail_parser_jieba()
+    da, db = work_detail_parser_ltp()
     classVec = [0, 1, 0, 1, 0, 1]
     return da + db, classVec
 
@@ -25,7 +26,6 @@ Parameters:
 Returns:
      dict_feature_select:特征选择词字典
 """
-
 
 def feature_select(list_words):
     # 总词频统计

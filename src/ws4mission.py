@@ -1,14 +1,11 @@
 # -*- coding: UTF-8 -*-
 import requests
-import webSpider.src.mission_slicer as slicer
-import webSpider.src.mySearch as mySearch
-from utils import pickleWrite, pickleReader
+import src.mission_slicer as slicer
+import src.mySearch as mySearch
+from utils import pickleWrite, pickleReader, readStopSet
 
 head = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36'}
-dir = '/Users/mac/Desktop/毕设/数据/ws4mission/'
-stopDir = dir + 'stopwords/'
-stopFileDir = stopDir + 'baidu_stopwords.txt'
-pklDir = dir + 'pickles/'
+dir = r"E:\毕设\data\ws4mission\\"
 directSearchDir = 'https://baike.baidu.com/item/'
 mumbleSearchDir = 'https://baike.baidu.com/search/none?word=[wordFiller]&pn=0&rn=10&enc=utf8'
 
@@ -28,10 +25,7 @@ def mumbleSearch(str):
 def readMission():
     wa, pa = slicer.work_summary_parser_ltp()
     # 初始化停用词(百度停用词表)
-    stopFile = open(stopFileDir, 'r', encoding='utf-8')
-    stopSet = set()
-    for val in stopFile:
-        stopSet.add(val)
+    stopSet = readStopSet()
     wa_next = set()
     for i in range(len(wa)):
         a = wa[i]
@@ -71,6 +65,14 @@ def getExplanation(entity):
         print(content)
     else:
         print("nothing")
+
+
+def missionParser(textList):
+    for text in textList:
+        wa, pa = slicer.origin_text_parser_ltp(text)
+        stopSet = readStopSet()
+        
+
 
 
 if __name__ == '__main__':

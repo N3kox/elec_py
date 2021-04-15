@@ -1,5 +1,5 @@
 import jieba
-from webSpider.src.utils import csvReader
+from src.utils import csvReader
 import re
 from ltp import LTP
 
@@ -57,7 +57,7 @@ def work_detail_parser_ltp():
     #     print(sb[i], pb[i])
 
 
-# 任务概述分词_ltp
+# ltp 任务概述分词 + 词性标注
 def work_summary_parser_ltp():
     f = csvReader("标准工作任务单")
     ltp = LTP()
@@ -71,6 +71,15 @@ def work_summary_parser_ltp():
     return wa, pa
 
 
+# ltp 原始语料分词 + 词性标注
+def origin_text_parser_ltp(text):
+    ltp = LTP()
+    wa, ha = ltp.seg(text)
+    pa = ltp.pos(ha)
+    return wa, pa
+
+
 if __name__ == '__main__':
-    sa, sb, pa, pb = work_detail_parser_ltp()
+    text = "adss"
+    origin_text_parser_ltp(text)
 
