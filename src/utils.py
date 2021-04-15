@@ -2,11 +2,12 @@
 
 import csv
 import json
+import pickle
+
 from py2neo import Node, Relationship, Graph
 
-
 dir = "/Users/mac/Desktop/毕设/数据/"
-
+pklDir = dir + 'ws4mission/pickles/'
 
 def csvReader(fileName):
     return csv.reader(open(dir + fileName + ".csv", "r", encoding="UTF-8-sig"))
@@ -113,6 +114,35 @@ def getMapByLabelAndProperty(labelName, propertyName):
     for node in graph.nodes.match(labelName):
         m[node[propertyName]] = node
     return m
+
+
+def getPkl(name):
+    return pklDir + name + '.pkl'
+
+
+def pickleWrite(name, content):
+    try:
+        # print(name)
+        # print(content)
+        pf = open(getPkl(name), 'wb')
+        pickle.dump(content, pf)
+        pf.close()
+        return True
+    except IOError:
+        print("Error:pickle写入失败")
+        return False
+
+
+def pickleReader(name):
+    try:
+        pf = open(getPkl(name), 'rb')
+        content = pickle.load(pf)
+        pf.close()
+        return content
+    except IOError:
+        print("Error:pickle读取失败")
+        return None
+
 
 
 

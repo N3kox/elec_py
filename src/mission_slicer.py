@@ -43,8 +43,8 @@ def work_detail_parser_ltp():
             temp = val[3:]
             for v in temp:
                 pbList.append(v)
-    print(paList)
-    print(pbList)
+    # print(paList)
+    # print(pbList)
     sa, ha = ltp.seg(paList)
     sb, hb = ltp.seg(pbList)
     pa = ltp.pos(ha)
@@ -55,3 +55,22 @@ def work_detail_parser_ltp():
     #     print(sa[i], pa[i])
     # for i in range(len(sb)):
     #     print(sb[i], pb[i])
+
+
+# 任务概述分词_ltp
+def work_summary_parser_ltp():
+    f = csvReader("标准工作任务单")
+    ltp = LTP()
+    paList = []
+    for i, row in enumerate(f):
+        if i != 0:
+            val = row[1][5:].split('，')
+            paList.append(val[2])
+    wa, ha = ltp.seg(paList)
+    pa = ltp.pos(ha)
+    return wa, pa
+
+
+if __name__ == '__main__':
+    sa, sb, pa, pb = work_detail_parser_ltp()
+
