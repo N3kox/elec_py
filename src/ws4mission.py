@@ -2,16 +2,8 @@
 import requests
 import webSpider.src.mission_slicer as slicer
 import webSpider.src.mySearch as mySearch
-from utils import pickleWrite, pickleReader
-
-head = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36'}
-dir = '/Users/mac/Desktop/毕设/数据/ws4mission/'
-stopDir = dir + 'stopwords/'
-stopFileDir = stopDir + 'baidu_stopwords.txt'
-pklDir = dir + 'pickles/'
-directSearchDir = 'https://baike.baidu.com/item/'
-mumbleSearchDir = 'https://baike.baidu.com/search/none?word=[wordFiller]&pn=0&rn=10&enc=utf8'
-
+from utils import pickleWrite, pickleRead, getStopSet
+from webSpider.src.static import directSearchDir, mumbleSearchDir, head
 
 def directSearch(str):
     html = requests.get(directSearchDir + str, headers=head)
@@ -28,10 +20,7 @@ def mumbleSearch(str):
 def readMission():
     wa, pa = slicer.work_summary_parser_ltp()
     # 初始化停用词(百度停用词表)
-    stopFile = open(stopFileDir, 'r', encoding='utf-8')
-    stopSet = set()
-    for val in stopFile:
-        stopSet.add(val)
+    stopSet = getStopSet()
     wa_next = set()
     for i in range(len(wa)):
         a = wa[i]
@@ -63,14 +52,27 @@ def entitySearch(entity_list):
 
 
 def getExplanation(entity):
-    emap = pickleReader('entity_index')
+    emap = pickleRead('entity_index')
     if emap is None:
         print("entity map hasn't been created!!")
     elif entity in emap:
-        content = pickleReader(entity)
+        content = pickleRead(entity)
         print(content)
     else:
         print("nothing")
+
+
+def missionTextParser(textList):
+    wa, pa = slicer.text_work_summary_parser_ltp(textList)
+    stopSet = getStopSet()
+    wa_next = set()
+    for i in range(len(wa)):
+        a = wa[i]
+        b = pa[i]
+        for j in range(len(a)):
+            if a[j] not in stopSet and b[j] == 'n':
+                wa_next.add(a[j])
+    return wa_next
 
 
 if __name__ == '__main__':
