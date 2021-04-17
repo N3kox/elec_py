@@ -2,7 +2,7 @@
 import requests
 import src.mission_slicer as slicer
 import src.mySearch as mySearch
-from utils import pickleWrite, pickleReader, readStopSet
+from utils import pickleWrite, pickleRead, readStopSet
 
 head = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36'}
 dir = r"E:\毕设\data\ws4mission\\"
@@ -57,11 +57,11 @@ def entitySearch(entity_list):
 
 
 def getExplanation(entity):
-    emap = pickleReader('entity_index')
+    emap = pickleRead('entity_index')
     if emap is None:
         print("entity map hasn't been created!!")
     elif entity in emap:
-        content = pickleReader(entity)
+        content = pickleRead(entity)
         print(content)
     else:
         print("nothing")
@@ -69,7 +69,7 @@ def getExplanation(entity):
 
 def missionTextParser(textList):
     wa, pa = slicer.text_work_summary_parser_ltp(textList)
-    stopSet = getStopSet()
+    stopSet = readStopSet()
     wa_next = set()
     for i in range(len(wa)):
         a = wa[i]

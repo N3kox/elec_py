@@ -82,5 +82,5 @@ def text_work_summary_parser_ltp(textList):
 
 if __name__ == '__main__':
     text = "adss"
-    origin_text_parser_ltp(text)
+    text_work_summary_parser_ltp(text)
 

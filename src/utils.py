@@ -158,6 +158,8 @@ def readStopSet():
     for val in stopFile:
         stopSet.add(val)
     return stopSet
+
+
 def jsonWrite(name, content):
     try:
         f = open(getJson(name), 'w', encoding='utf-8')
