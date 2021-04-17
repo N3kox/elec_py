@@ -122,6 +122,7 @@ def getPkl(name):
 def getJson(name):
     return jsonDir + name + '.json'
 
+
 def pickleWrite(name, content):
     try:
         # print(name)
@@ -175,6 +176,9 @@ def getStopSet():
         stopSet.add(val)
     stopFile.close()
     return stopSet
+
+def getStopWordPath():
+    return stopFileDir
 
 
 def pkl2json():
