@@ -2,6 +2,7 @@
 from src.utils import *
 from py2neo import Node, Relationship, Graph
 
+# 源数据预处理部分
 
 # 4.8 another graph on importing
 def anotherGraphParser():
@@ -588,4 +589,6 @@ def init():
     locationHelper()
     print("init done")
 
-init()
+
+if __name__ == '__main__':
+    init()

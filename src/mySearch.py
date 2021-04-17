@@ -23,6 +23,7 @@ def direct_search_map(word):
     return m
 
 
+# 匹配模糊查询内容
 def mumble_search_map(word):
     res = []
     ans = getBaike(word, no=[1,[]])

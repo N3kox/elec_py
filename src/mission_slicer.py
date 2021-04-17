@@ -58,6 +58,7 @@ def work_detail_parser_ltp():
 
 
 # ltp 任务概述分词 + 词性标注
+# ltp-原始数据-任务概述分词+词性标注
 def work_summary_parser_ltp():
     f = csvReader("标准工作任务单")
     ltp = LTP()
@@ -71,10 +72,10 @@ def work_summary_parser_ltp():
     return wa, pa
 
 
-# ltp 原始语料分词 + 词性标注
-def origin_text_parser_ltp(text):
+# ltp-新增数据-任务概述分词+词性标注
+def text_work_summary_parser_ltp(textList):
     ltp = LTP()
-    wa, ha = ltp.seg(text)
+    wa, ha = ltp.seg(textList)
     pa = ltp.pos(ha)
     return wa, pa
 

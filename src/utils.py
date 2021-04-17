@@ -3,17 +3,16 @@
 import csv
 import json
 import pickle
+import os
+from py2neo import Node, Graph
+from src.static import dir, pklDir,jsonDir, stopFileDir
 
 from py2neo import Node, Relationship, Graph
 
-dir = r"E:\毕设\data\\"
-pklDir = dir + 'ws4mission\pickles\\'
-stopDir = dir + 'stopwords\\'
-stopFileDir = stopDir + 'baidu_stopwords.txt'
-
+dir = "/Users/mac/Desktop/毕设/数据/"
+pklDir = dir + 'ws4mission/pickles/'
 
 def csvReader(fileName):
-    print(dir+fileName+".csv")
     return csv.reader(open(dir + fileName + ".csv", "r", encoding="UTF-8-sig"))
 
 
@@ -124,6 +123,10 @@ def getPkl(name):
     return pklDir + name + '.pkl'
 
 
+def getJson(name):
+    return jsonDir + name + '.json'
+
+
 def pickleWrite(name, content):
     try:
         # print(name)
@@ -137,7 +140,7 @@ def pickleWrite(name, content):
         return False
 
 
-def pickleReader(name):
+def pickleRead(name):
     try:
         pf = open(getPkl(name), 'rb')
         content = pickle.load(pf)
@@ -155,3 +158,59 @@ def readStopSet():
     for val in stopFile:
         stopSet.add(val)
     return stopSet
+def jsonWrite(name, content):
+    try:
+        f = open(getJson(name), 'w', encoding='utf-8')
+        json.dump(content, f, ensure_ascii=False)
+        f.close()
+        return True
+    except IOError:
+        print("Error:json写入失败")
+        return False
+
+
+def jsonRead(name):
+    try:
+        f = open(getJson(name), 'r', encoding='utf-8')
+        content = json.load(f)
+        f.close()
+        return content
+    except IOError:
+        print("Error:json写入失败")
+        return None
+
+
+def getStopSet():
+    stopFile = open(stopFileDir, 'r', encoding='utf-8')
+    stopSet = set()
+    for val in stopFile:
+        stopSet.add(val)
+    stopFile.close()
+    return stopSet
+
+def getStopWordPath():
+    return stopFileDir
+
+
+def pkl2json():
+    files = os.listdir(pklDir)
+    s = []
+    for file in files:
+        if not os.path.isdir(file):
+            fname = file[:-4]
+            content = pickleRead(fname)
+            jsonWrite(fname, content)
+
+
+def jsontest():
+    files = os.listdir(jsonDir)
+    s = []
+    for file in files:
+        if not os.path.isdir(file):
+            fname = file[:-5]
+            content = jsonRead(fname)
+            print(content)
+
+
+if __name__ == '__main__':
+    pass

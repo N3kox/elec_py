@@ -67,12 +67,17 @@ def getExplanation(entity):
         print("nothing")
 
 
-def missionParser(textList):
-    for text in textList:
-        wa, pa = slicer.origin_text_parser_ltp(text)
-        stopSet = readStopSet()
-        
-
+def missionTextParser(textList):
+    wa, pa = slicer.text_work_summary_parser_ltp(textList)
+    stopSet = getStopSet()
+    wa_next = set()
+    for i in range(len(wa)):
+        a = wa[i]
+        b = pa[i]
+        for j in range(len(a)):
+            if a[j] not in stopSet and b[j] == 'n':
+                wa_next.add(a[j])
+    return wa_next
 
 
 if __name__ == '__main__':
