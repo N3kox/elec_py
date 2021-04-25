@@ -1,5 +1,5 @@
 # -*- coding:UTF-8 -*-
-from webSpider.src.utils import *
+from src.utils import *
 from py2neo import Node, Relationship
 
 # 源数据预处理部分

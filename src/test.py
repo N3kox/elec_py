@@ -3,7 +3,7 @@ import sys
 import csv
 import py2neo
 from py2neo import Node, Relationship, Graph, NodeMatcher, PropertyDict
-from webSpider.src.utils import *
+from src.utils import *
 
 print(py2neo.__version__)
 

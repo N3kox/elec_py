@@ -1,5 +1,5 @@
 import jieba
-from webSpider.src.utils import csvReader
+from src.utils import csvReader
 import re
 from ltp import LTP
 

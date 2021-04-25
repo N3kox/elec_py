@@ -2,7 +2,7 @@
 import sys
 import argparse
 import json
-from webSpider.src.ws4mission import missionTextParser
+from src.ws4mission import missionTextParser
 
 
 def parse_arguments(argv):

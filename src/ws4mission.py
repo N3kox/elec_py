@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 import requests
-import webSpider.src.mission_slicer as slicer
-import webSpider.src.mySearch as mySearch
+import src.mission_slicer as slicer
+import src.mySearch as mySearch
 from utils import pickleWrite, pickleRead, getStopSet
-from webSpider.src.static import directSearchDir, mumbleSearchDir, head
+from src.static import directSearchDir, mumbleSearchDir, head
 
 def directSearch(str):
     html = requests.get(directSearchDir + str, headers=head)

@@ -5,7 +5,7 @@ import json
 import pickle
 import os
 from py2neo import Node, Graph
-from webSpider.src.static import dir, pklDir,jsonDir, stopFileDir
+from src.static import dir, pklDir,jsonDir, stopFileDir
 
 
 def csvReader(fileName):

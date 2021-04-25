@@ -2,7 +2,12 @@
 from collections import defaultdict
 import math
 import operator
-from webSpider.src.mission_slicer import work_detail_parser_ltp, work_detail_parser_jieba
+import sys
+import os
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
+from src.mission_slicer import work_detail_parser_ltp, work_detail_parser_jieba
 
 """
 函数说明:创建数据样本
