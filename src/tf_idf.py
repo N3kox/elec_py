@@ -2,7 +2,14 @@
 from collections import defaultdict
 import math
 import operator
-from src.mission_slicer import work_detail_parser_ltp, work_detail_parser_jieba
+import sys
+import os
+import json
+from mission_slicer import work_detail_parser_ltp, work_detail_parser_jieba
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
+# print(rootPath)
 
 """
 函数说明:创建数据样本
@@ -13,8 +20,8 @@ Returns:
 
 
 def loadDataSet():
-    # da, db = work_detail_parser_jieba()
-    da, db = work_detail_parser_ltp()
+    da, db = work_detail_parser_jieba()
+    # da, db = work_detail_parser_ltp()
     classVec = [0, 1, 0, 1, 0, 1]
     return da + db, classVec
 
@@ -60,8 +67,14 @@ def feature_select(list_words):
     return dict_feature_select
 
 
+
 if __name__ == '__main__':
     data_list, label_list = loadDataSet()
     features = feature_select(data_list)
-    for f in features:
-        print(f)
+    res = {}
+    for i in range(len(features)):
+        res[features[i][0]] = features[i][1]
+    print(json.dumps(res))
+
+    # for f in features:
+    #     print(f)
