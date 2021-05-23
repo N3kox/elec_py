@@ -10,7 +10,7 @@ class SimHash(object):
         seg = jieba.cut(content)
         # jieba基于TF-IDF提取关键词
         jieba.analyse.set_stop_words(getStopWordPath())
-        keyWords = jieba.analyse.extract_tags("|".join(seg), topK=4, withWeight=True)
+        keyWords = jieba.analyse.extract_tags("|".join(seg), topK=5, withWeight=True, allowPOS=('ns', 'n', 'nr'))
         keyList = []
         for feature, weight in keyWords:
             print('weight: {}'.format(weight))
@@ -68,6 +68,7 @@ class SimHash(object):
 # TODO : simhash持久化与
 if __name__ == '__main__':
     simhash = SimHash()
+
     s1 = simhash.simHash('adss补修绑扎线松散')
     s2 = simhash.simHash('adss接线盒脱落')
     dis = simhash.getDistance(s1, s2)

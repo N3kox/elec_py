@@ -5,7 +5,7 @@ import json
 import pickle
 import os
 from py2neo import Node, Graph
-from src.static import dir, pklDir,jsonDir, stopFileDir
+from static import dir, pklDir,jsonDir, stopFileDir
 
 
 def csvReader(fileName):
@@ -165,7 +165,7 @@ def jsonRead(name):
         f.close()
         return content
     except IOError:
-        print("Error:json写入失败")
+        print("Error:json读取失败")
         return None
 
 

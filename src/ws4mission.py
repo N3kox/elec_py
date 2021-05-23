@@ -1,9 +1,11 @@
 # -*- coding: UTF-8 -*-
 import requests
-import src.mission_slicer as slicer
-import src.mySearch as mySearch
-from utils import pickleWrite, pickleRead, getStopSet
-from src.static import directSearchDir, mumbleSearchDir, head
+import mission_slicer as slicer
+import mySearch as mySearch
+from utils import pickleWrite, pickleRead, getStopSet, jsonRead
+from static import directSearchDir, mumbleSearchDir, head
+from mission_slicer import text_slicer
+
 
 def directSearch(str):
     html = requests.get(directSearchDir + str, headers=head)
@@ -51,15 +53,43 @@ def entitySearch(entity_list):
     pickleWrite('entity_index', emap)
 
 
+# 使用entities获取
+def getExplanationExtension(entities):
+    res = []
+    j1 = jsonRead("entity_index")
+    j2 = jsonRead("entity_keywords_reverse")
+    # full match
+    for e in entities:
+        for item in j1:
+            if e == item:
+                tup = [item, e]
+                if tup not in res:
+                    res.append(tup)
+        for item in j2:
+            if e == item:
+                for v in j2[item]:
+                    tup = [v, e]
+                    if tup not in res:
+                        res.append(tup)
+    return res
+
+
 def getExplanation(entity):
     emap = pickleRead('entity_index')
     if emap is None:
-        print("entity map hasn't been created!!")
+        return None
     elif entity in emap:
         content = pickleRead(entity)
-        print(content)
+        return {entity: content}
     else:
-        print("nothing")
+        return None
+
+
+def getResource(entity):
+    j = jsonRead(entity)
+    if j is None:
+        return None
+    return j
 
 
 def missionTextParser(textList):
@@ -75,5 +105,28 @@ def missionTextParser(textList):
     return wa_next
 
 
+def termSearch(text):
+    slist = text_slicer(text)
+    return getExplanationExtension(slist)
+
+
+def termSearchExact(text):
+    j = jsonRead(text)
+    return j
+
+
+def solutionSearch(text):
+    j = jsonRead("mission_links")
+    slist = text_slicer(text)
+    res = []
+    for s in slist:
+        for k in j:
+            if s in k:
+                a = [k, j[k]]
+                if a not in res:
+                    res.append(a)
+    return res
+
+
 if __name__ == '__main__':
-    getExplanation('adss')
+    solutionSearch("混凝土杆杆身异物")

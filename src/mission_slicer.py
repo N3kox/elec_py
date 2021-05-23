@@ -1,5 +1,5 @@
 import jieba
-from src.utils import csvReader
+from utils import csvReader
 import re
 from ltp import LTP
 
@@ -77,6 +77,10 @@ def text_work_summary_parser_ltp(textList):
     wa, ha = ltp.seg(textList)
     pa = ltp.pos(ha)
     return wa, pa
+
+
+def text_slicer(text):
+    return jieba.lcut(text, cut_all=True)
 
 
 if __name__ == '__main__':
