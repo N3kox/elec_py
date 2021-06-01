@@ -5,7 +5,7 @@ import json
 import pickle
 import os
 from py2neo import Node, Graph
-from static import dir, pklDir,jsonDir, stopFileDir
+from static import dir, pklDir,jsonDir, stopFileDir, addr, auth
 
 
 def csvReader(fileName):
@@ -14,8 +14,8 @@ def csvReader(fileName):
 
 def dbConn():
     testGraph = Graph(
-        address=('localhost', '7687'),
-        auth=("neo4j", "shuffleralt1999")
+        address=addr,
+        auth=auth
     )
     return testGraph
 

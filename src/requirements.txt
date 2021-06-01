@@ -1,0 +1,7 @@
+requests==2.25.1
+auto_mix_prep==0.2.0
+baike==1.4.1
+jieba==0.42.1
+ltp==4.1.4.post1
+numpy==1.20.3
+py2neo==2021.1.2

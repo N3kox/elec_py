@@ -129,4 +129,4 @@ def solutionSearch(text):
 
 
 if __name__ == '__main__':
-    solutionSearch("混凝土杆杆身异物")
+    entitySearch(missionTextParser(["混凝土杆存在异物"]))

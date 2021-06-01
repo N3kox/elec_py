@@ -84,5 +84,8 @@ def text_slicer(text):
 
 
 if __name__ == '__main__':
-    sa, sb, pa, pb = work_detail_parser_ltp()
+    # sa, sb, pa, pb = work_detail_parser_ltp()
+    wa, pa = text_work_summary_parser_ltp(['光缆断裂'])
+    print(wa)
+    print(pa)
 

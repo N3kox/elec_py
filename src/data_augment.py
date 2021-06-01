@@ -4,6 +4,7 @@ import string
 
 id_base_str = "5984932C-A606-4B76-9738-CFEC5A61394B-00828"
 
+
 # return a code with len:len
 def rand_letter_digits(len):
     return ''.join(random.sample(string.ascii_uppercase + string.digits, len))
@@ -11,6 +12,7 @@ def rand_letter_digits(len):
 
 def rand_dig(len):
     return ''.join(random.sample(string.digits, len))
+
 
 # return fake id list
 def id_aug(raw_id_str, n):
